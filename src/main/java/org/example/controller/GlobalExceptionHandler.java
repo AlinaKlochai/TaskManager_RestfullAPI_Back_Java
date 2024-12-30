@@ -10,13 +10,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -52,31 +52,39 @@ public class GlobalExceptionHandler {
             return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
-        @ExceptionHandler(value = MethodArgumentNotValidException.class)
-        public ResponseEntity<ValidationErrorsDto> handleValidationException(MethodArgumentNotValidException e) {
 
-            List<ValidationErrorDto> validationErrors = new ArrayList<>();
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ValidationErrorsDto> handleValidationException(MethodArgumentNotValidException ex) {
+        List<ValidationErrorDto> validationErrors = ex.getBindingResult().getFieldErrors().stream()
+                .collect(Collectors.groupingBy(fieldError -> fieldError.getField()))
+                .entrySet().stream()
+                .map(entry -> {
+                    String field = entry.getKey();
+                    List<FieldError> fieldErrors = entry.getValue();
 
-            List<ObjectError> errors = e.getBindingResult().getAllErrors();
+                    // Собираем ошибки для конкретного поля
+                    List<String> messages = fieldErrors.stream()
+                            .map(FieldError::getDefaultMessage)
+                            .distinct() // Исключаем дублирующиеся ошибки
+                            .collect(Collectors.toList());
 
-            // Собираем ошибки в соответствующий формат
-            for (ObjectError error : errors) {
-                FieldError fieldError = (FieldError)error;
-                ValidationErrorDto errorDto = ValidationErrorDto.builder()
-                        .field(fieldError.getField())
-                        .message(fieldError.getDefaultMessage())
-                        .build();
+                    // Создаём ValidationErrorDto для каждого поля с его ошибками
+                    return ValidationErrorDto.builder()
+                            .field(field)
+                            .message(String.join(", ", messages))
+                            .build();
+                })
+                .collect(Collectors.toList());
 
-                validationErrors.add(errorDto);
-            }
-
-
-            return ResponseEntity
-                    .badRequest()
-                    .body(ValidationErrorsDto.builder()
-                            .errors(validationErrors)
-                            .build());
+        // Если есть ошибки, возвращаем их
+        if (!validationErrors.isEmpty()) {
+            return ResponseEntity.badRequest().body(ValidationErrorsDto.builder()
+                    .errors(validationErrors)
+                    .build());
         }
+
+        return ResponseEntity.ok().build();
+    }
 
     @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
     public ResponseEntity<String> handleOptimisticLockException(ObjectOptimisticLockingFailureException ex) {
