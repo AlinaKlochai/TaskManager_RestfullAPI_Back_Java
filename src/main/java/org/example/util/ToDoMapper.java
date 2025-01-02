@@ -6,7 +6,6 @@ import org.example.model.ToDo;
 import org.example.model.State;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 
 @Component
 public class ToDoMapper {

@@ -3,7 +3,6 @@ package org.example.service;
 import lombok.AllArgsConstructor;
 import org.example.DTO.ToDoCreateRequestDTO;
 import org.example.DTO.ToDoResponseDTO;
-import org.example.exception.AlreadyExistException;
 import org.example.model.ToDo;
 import org.example.repository.ToDoRepository;
 import org.example.util.ToDoMapper;

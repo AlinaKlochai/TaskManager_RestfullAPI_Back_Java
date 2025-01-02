@@ -1,7 +1,6 @@
 package org.example.service;
 
 import lombok.AllArgsConstructor;
-import org.example.DTO.appDTO.OneMessageDTO;
 import org.example.model.ToDo;
 import org.example.repository.ToDoRepository;
 import org.example.util.ToDoMapper;
