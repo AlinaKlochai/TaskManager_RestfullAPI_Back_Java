@@ -23,19 +23,19 @@
 
   <dependencies>
 
-    <!-- Spring Boot -->
+    <!-- Spring Boot inc. Tomcat по умолчанию, Spring MVC, Jackson(work with JSON) -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 
-    <!-- JPA -->
+    <!-- JPA inc. Hibernate -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
 
-    <!-- PostgreSQL -->
+    <!-- PostgreSQL (runtime - use only for using API) -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
@@ -43,31 +43,17 @@
       <scope>runtime</scope>
     </dependency>
 
-    <!-- Lombok -->
+    <!-- Lombok (provided-use only for compilation)-->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <scope>provided</scope>
     </dependency>
 
-    <!-- Validation -->
+    <!-- Validation inc. Hibernate Validator -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>
-    </dependency>
-
-    <!-- JWT -->
-    <dependency>
-      <groupId>io.jsonwebtoken</groupId>
-      <artifactId>jjwt-impl</artifactId>
-      <version>0.11.2</version>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.jsonwebtoken</groupId>
-      <artifactId>jjwt-jackson</artifactId>
-      <version>0.11.2</version>
-      <scope>runtime</scope>
     </dependency>
 
     <!-- Documentation OpenAPI -->
@@ -77,7 +63,7 @@
       <version>2.1.0</version>
     </dependency>
 
-    <!-- JUnit -->
+    <!-- JUnit, tests with @Test, @BeforeEach, @AfterEach -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
@@ -89,6 +75,7 @@
   <build>
     <plugins>
       <!-- Maven Compiler Plugin -->
+       <!-- source and target - indicate version Java: for compilation(source), for create bite-code(target)  -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -99,7 +86,7 @@
         </configuration>
       </plugin>
 
-      <!-- Spring Boot Maven Plugin -->
+      <!-- Spring Boot Maven Plugin - make a translation Java-code in bite-code -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
