@@ -70,7 +70,7 @@ public class GlobalExceptionHandler {
                     // Создаём ValidationErrorDto для каждого поля с его ошибками
                     return ValidationErrorDto.builder()
                             .field(field)
-                            .message(String.join(", ", messages))
+                            .message(String.join(" ", messages))
                             .build();
                 })
                 .collect(Collectors.toList());
