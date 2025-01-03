@@ -10,18 +10,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class ToDoMapper {
 
-    // Метод для преобразования ToDoCreateRequestDTO в ToDo
+    // ToDoCreateRequestDTO to ToDo
     public ToDo toModel(ToDoCreateRequestDTO toDoCreateRequestDTO) {
 
         ToDo toDo = new ToDo();
         toDo.setDescription(toDoCreateRequestDTO.getDescription());
-        toDo.setDueDate(toDoCreateRequestDTO.getDueDate()); // Устанавливаем текущую дату
-        toDo.setState(State.OPEN);  // Устанавливаем начальное состояние
+        toDo.setDueDate(toDoCreateRequestDTO.getDueDate());
+        toDo.setState(State.OPEN);
 
         return toDo;
     }
 
-    // Метод для преобразования ToDo в ToDoResponseDTO
+    //  ToDo to ToDoResponseDTO
     public ToDoResponseDTO toResponseDTO(ToDo toDo) {
         ToDoResponseDTO toDoResponseDTO = new ToDoResponseDTO();
         toDoResponseDTO.setId(toDo.getId());
@@ -32,7 +32,7 @@ public class ToDoMapper {
         return toDoResponseDTO;
     }
 
-    // Метод для преобразования ToDoResponseDTO в ToDo
+    // ToDoResponseDTO to ToDo
     public ToDo fromResponseToModel(ToDoResponseDTO toDoResponseDTO) {
         if (toDoResponseDTO == null) {
             return null;
