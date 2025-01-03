@@ -8,8 +8,6 @@ import org.example.repository.ToDoRepository;
 import org.example.util.ToDoMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @AllArgsConstructor
 public class AddToDoService {
@@ -23,8 +21,6 @@ public class AddToDoService {
 
         ToDo savedToDo = toDoRepository.save(newToDo);
 
-        ToDoResponseDTO toDoResponseDTO = toDoMapper.toResponseDTO(savedToDo);
-
-        return toDoResponseDTO;
+        return toDoMapper.toResponseDTO(savedToDo);
     }
 }
