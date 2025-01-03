@@ -2,6 +2,7 @@ package org.example.controller;
 
 import lombok.AllArgsConstructor;
 import org.example.DTO.appDTO.OneMessageDTO;
+import org.example.controller.api.UpdateStatusToDoControllerApi;
 import org.example.service.UpdateToDoStatusService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-public class UpdateStatusToDoController {
+public class UpdateStatusToDoController implements UpdateStatusToDoControllerApi {
 
     private final UpdateToDoStatusService updateToDoStatusService;
 

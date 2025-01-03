@@ -2,6 +2,7 @@ package org.example.controller;
 
 import lombok.AllArgsConstructor;
 import org.example.DTO.ToDoResponseDTO;
+import org.example.controller.api.FindToDoControllerApi;
 import org.example.service.FindToDoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-public class FindToDoController {
+public class FindToDoController implements FindToDoControllerApi {
 
     private final FindToDoService findToDoService;
 
