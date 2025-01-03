@@ -16,6 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public interface AddToDoControllerApi {
 
+    /**
+     * Controller for adding a new ToDo.
+     * Handles POST requests to create new tasks.
+     * Returns 201 Created if the operation is successful.
+     *
+     * @param requestDTO DTO with task description and due date.
+     * @return ResponseEntity with the created task (ToDoResponseDTO).
+     */
     @Operation(summary = "Add new todo with due date", description = "The operation is available for user to add a new to do with due date")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
