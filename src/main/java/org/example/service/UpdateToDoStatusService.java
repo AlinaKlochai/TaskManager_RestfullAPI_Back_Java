@@ -19,20 +19,16 @@ public class UpdateToDoStatusService {
     private final FindToDoService findToDoService;
 
     public Object updateStatus(Long toDoId) {
-        // Получаем ToDo из репозитория
         ToDo toDo = toDoMapper.fromResponseToModel(findToDoService.findToDosByToDoId(toDoId));
 
-        // Проверяем допустимость изменения статуса
         if (toDo.getState() != State.OPEN) {
             return new OneMessageDTO("Status change not allowed. Can only change from IN_PROGRESS to DONE.");
         }
 
-        // Обновляем статус
+        // set new status
         toDo.setState(State.DONE);
-       // toDo.getDueDate(createdAtDate);
         ToDo updatedToDo = toDoRepository.save(toDo);
 
-        // Возвращаем DTO ответа
         return toDoMapper.toResponseDTO(updatedToDo);
     }
 }
