@@ -2,7 +2,6 @@ package org.example.service;
 
 import lombok.AllArgsConstructor;
 import org.example.repository.ToDoRepository;
-import org.example.util.ToDoMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,10 +10,9 @@ public class DeleteToDoService {
 
     private final ToDoRepository toDoRepository;
     private final FindToDoService findToDoService;
-    private final ToDoMapper toDoMapper;
 
     public void deleteToDo(Long toDoId) {
-        toDoMapper.fromResponseToModel(findToDoService.findToDosByToDoId(toDoId));
+        findToDoService.findToDosByToDoId(toDoId);
 
         toDoRepository.deleteById(toDoId);
     }
