@@ -61,13 +61,13 @@ public class GlobalExceptionHandler {
                     String field = entry.getKey();
                     List<FieldError> fieldErrors = entry.getValue();
 
-                    // Собираем ошибки для конкретного поля
+                    // sammeln von Fehlern für ein bestimmtes Feld
                     List<String> messages = fieldErrors.stream()
                             .map(FieldError::getDefaultMessage)
                             .distinct() // Исключаем дублирующиеся ошибки
                             .collect(Collectors.toList());
 
-                    // Создаём ValidationErrorDto для каждого поля с его ошибками
+                    // erstellen eines ValidationErrorDto für jedes Feld mit seinen Fehlern
                     return ValidationErrorDto.builder()
                             .field(field)
                             .message(String.join(" ", messages))
@@ -75,7 +75,7 @@ public class GlobalExceptionHandler {
                 })
                 .collect(Collectors.toList());
 
-        // Если есть ошибки, возвращаем их
+        // wenn es Fehler gibt, geben wir sie zurück
         if (!validationErrors.isEmpty()) {
             return ResponseEntity.badRequest().body(ValidationErrorsDto.builder()
                     .errors(validationErrors)
