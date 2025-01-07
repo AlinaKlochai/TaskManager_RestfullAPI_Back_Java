@@ -1,7 +1,6 @@
 package org.example.controller;
 
 import lombok.AllArgsConstructor;
-import org.example.DTO.appDTO.OneMessageDTO;
 import org.example.controller.api.DeleteToDoControllerApi;
 import org.example.service.DeleteToDoService;
 import org.springframework.http.ResponseEntity;
